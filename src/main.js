@@ -1,34 +1,42 @@
+import { searchImages } from './js/pixabay-api.js';
+import { renderImages } from './js/render-functions.js';
+import { showLoader, hideLoader, showMessage } from './js/halper.js';
 
-import { searchImages } from './pixabay-api.js';
-import { renderImages } from './render-functions.js';
-import iziToast from './iziToast.js';
+const searchForm = document.querySelector('.js-form');
 
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.querySelector('.js-form');
-  const loader = document.querySelector('.loader');
+searchForm.addEventListener('submit', onSearchBtn);
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const searchInput = e.currentTarget.querySelector('.input-form').value.trim()
+function onSearchBtn(e) {
+  e.preventDefault();
+  showLoader();
+  clearMarkup();
 
-    if (!searchInput) {
-      iziToast.error({
-        title: 'Error',
-        message: 'Please enter a search query.',
-      });
-      return;
-    }
-    try {
-      loader.style.display = 'block';
-      const images = await searchImages(searchInput);
-      renderImages(images);
-    } catch (error) {
-      iziToast.error({
-        title: 'Error',
-        message: error.message,
-      });
-    } finally {
-      loader.style.display = 'none';
-    }
-  });
-});
+  const searchInput = e.target.elements.data.value.trim().split(' ');
+  const userWord = userValue.filter(word => word).join('+');
+
+  if (!searchInput) {
+    clearMarkup();
+    showMessage('Please enter a search term');
+    hideLoader();
+    return;
+  }
+
+  searchImages(searchInput)
+    .then(function (searchData) {
+      if (searchData.hits.length === 0) {
+        clearMarkup();
+        showMessage('Sorry, no images found. Please try again.');
+      } else {
+        renderImages(searchData.hits);
+      }
+    })
+    .catch(function (error) {
+      console.error('Error fetching images:', error);
+      showMessage('An error occurred. Please try again later.');
+    })
+    .finally(function () {
+      hideLoader();
+    });
+
+  e.target.reset();
+}

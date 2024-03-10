@@ -2,22 +2,34 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250,
+  captionsData: 'alt',
+  captionDelay: 250,
 });
 
-const gallery = document.querySelector(".gallery")
+const gallery = document.querySelector('.gallery');
 
-export function renderImages(img) {
-    const markup = img.map(imgTemplate).join('\n');
-      gallery.innerHTML = markup;
-      lightbox.refresh();
-  }
+export function renderImages(arr) {
+  const markup = renderMarkup;
+  gallery.innerHTML = markup;
+  lightbox.refresh();
+}
+
+function renderMarkup(arr) {
+  return arr.map(imgTemplate).join('\n');
+}
 
 function imgTemplate(images) {
-    const { webformatURL, largeImageURL, tags, likes, views, comments, downloads } = images;
-  
-    return `<li class="gallery-item">
+  const {
+    webformatURL,
+    largeImageURL,
+    tags,
+    likes,
+    views,
+    comments,
+    downloads,
+  } = images;
+
+  return `<li class="gallery-item">
     <a class="gallery-link" href="${largeImageURL}">
         <img
             class="gallery-image"
@@ -46,5 +58,8 @@ function imgTemplate(images) {
             </li>
         </ul>
 </li>`;
-  }
+}
 
+export function clearMarkup() {
+  gallery.innerHTML = '';
+}
