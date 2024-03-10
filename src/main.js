@@ -1,8 +1,10 @@
 import { searchImages } from './js/pixabay-api.js';
-import { renderImages } from './js/render-functions.js';
-import { showLoader, hideLoader, showMessage } from './js/halper.js';
+import { renderImages, clearMarkup } from './js/render-functions.js';
+import { showLoader, hideLoader, showMessage } from './js/helpers.js';
 
 const searchForm = document.querySelector('.js-form');
+const msgErr = "Sorry, there are no images matching your search query. Please try again!";
+const emptyMsg = "Error, empty field";
 
 searchForm.addEventListener('submit', onSearchBtn);
 
@@ -11,30 +13,26 @@ function onSearchBtn(e) {
   showLoader();
   clearMarkup();
 
-  const searchInput = e.target.elements.data.value.trim().split(' ');
-  const userWord = userValue.filter(word => word).join('+');
+  const searchInput = e.target.elements.search.value.trim().split(" ");
+  const userWord = searchInput.filter(word => word).join('+');
 
-  if (!searchInput) {
-    clearMarkup();
-    showMessage('Please enter a search term');
-    hideLoader();
+  if (!userWord) {
+    clearMarkup()
+    showMessage(emptyMsg)
+    hideLoader()
     return;
   }
 
-  searchImages(searchInput)
-    .then(function (searchData) {
-      if (searchData.hits.length === 0) {
-        clearMarkup();
-        showMessage('Sorry, no images found. Please try again.');
+  searchImages(userWord)
+    .then(res => {
+      if (res.hits.length === 0) {
+        hideLoader();
+        showMessage(msgErr);
       } else {
-        renderImages(searchData.hits);
+        renderImages(res.hits);
       }
     })
-    .catch(function (error) {
-      console.error('Error fetching images:', error);
-      showMessage('An error occurred. Please try again later.');
-    })
-    .finally(function () {
+    .catch(console.log).finally(() => {
       hideLoader();
     });
 

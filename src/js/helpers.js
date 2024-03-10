@@ -1,5 +1,7 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import error from '../img/error.svg';
+
 
 const loader = document.querySelector('.loader');
 
@@ -13,14 +15,10 @@ export function hideLoader() {
 
 export function showMessage(message) {
   iziToast.error({
-    title: 'Error',
     message,
-    iconUrl: error,
     backgroundColor: '#EF4040',
     messageColor: '#fff',
     position: 'topRight',
-    transitionIn: 'fadeInDown',
-    transitionOut: 'fadeOutRight',
-    closeOnClick: 'false',
+    iconUrl: error,
   });
 }

@@ -9,7 +9,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 const gallery = document.querySelector('.gallery');
 
 export function renderImages(arr) {
-  const markup = renderMarkup;
+  const markup = renderMarkup(arr);
   gallery.innerHTML = markup;
   lightbox.refresh();
 }
@@ -18,7 +18,7 @@ function renderMarkup(arr) {
   return arr.map(imgTemplate).join('\n');
 }
 
-function imgTemplate(images) {
+function imgTemplate(img) {
   const {
     webformatURL,
     largeImageURL,
@@ -27,7 +27,9 @@ function imgTemplate(images) {
     views,
     comments,
     downloads,
-  } = images;
+    previewWidth,
+    previewHeight,
+  } = img;
 
   return `<li class="gallery-item">
     <a class="gallery-link" href="${largeImageURL}">

@@ -11,12 +11,19 @@
   width: 360px;
   height: 200px;
   object-fit: cover;
+  transform: scale(1);
   transition: 0.3s ease-in-out;
 }
 
 .gallery-link:hover > .gallery-image,
 .gallery-link:focus > .gallery-image {
   transform: scale(1.1);
+}
+
+.gallery-item {
+  border: 1px solid #808080;
+  position: relative;
+  overflow: hidden;
 }
 
 .desc-list {
@@ -37,8 +44,6 @@
 .desc-item {
   display: flex;
   flex-direction: column;
-  position: relative;
-  overflow: hidden;
 }
 
 .desc-title {
