@@ -1,52 +1,49 @@
 .loader {
-    color: #FFF;
-    display: inline-block;
-    position: relative;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 48px;
-    letter-spacing: 4px;
-    box-sizing: border-box;
-  }
-  .loader::before {
-    content: '';  
-    position: absolute;
-    right: 68px;
-    bottom: 10px;
-    height: 24px;
-    width: 7px;
-    outline: 1px solid #FFF;
-    color: #FF3D00;
-    box-sizing: border-box;
-    animation: animloader1 1s linear infinite alternate;
-  }
-  .loader::after {
-    content: '';  
-    width: 4px;
-    height: 4px;
-    background: #FF3D00;
-    position: absolute;
-    right: 70px;
-    top: 8px;
-    box-sizing: border-box;
-    animation: animloader 1s ease-out infinite alternate;
-  }
+  position: relative;
+  width: 108px;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #6c8cff;
   
-  @keyframes animloader {
-    0% {
-      top: 8px;
-      transform: rotate(0deg) scale(1);
-    }
-    100% {
-      top: 0px;
-      transform: rotate(180deg) scale(1.5);
-    }
-  }
-  
-  @keyframes animloader1 {
-    0% {
-      box-shadow: 0 0 inset;
-    }
-    100% {
-      box-shadow: 0 -28px inset;
-    }
-  }
+}
+.loader::after , .loader::before  {
+  content: '';
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  width: 48px;
+  height: 48px;
+  background-color: rgb(255, 255, 255);
+  background-image:  radial-gradient(circle 14px, #0d161b 100%, transparent 0);
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  animation: eyeMove 10s infinite , blink 10s infinite;
+}
+@keyframes eyeMove {
+  0%  , 10% {     background-position: 0px 0px}
+  13%  , 40% {     background-position: -15px 0px}
+  43%  , 70% {     background-position: 15px 0px}
+  73%  , 90% {     background-position: 0px 15px}
+  93%  , 100% {     background-position: 0px 0px}
+}
+@keyframes blink {
+  0%  , 10% , 12% , 20%, 22%, 40%, 42% , 60%, 62%,  70%, 72% , 90%, 92%, 98% , 100%
+  { height: 48px}
+  11% , 21% ,41% , 61% , 71% , 91% , 99%
+  { height: 18px}
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+display: flex;
+  margin-top: 40px;
+}
+
+.loader-p{
+  position: absolute;
+  bottom: +470px;
+}

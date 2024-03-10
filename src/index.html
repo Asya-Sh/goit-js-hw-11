@@ -7,23 +7,27 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-  
 
     <section>
-      <form class="form js-form" >
+      <form class="form js-form">
         <input
-            class="input-form"
-            type="text"
-            name="search-name"
-            id="name"
-            placeholder="Search images..."
-           
+          class="input-form"
+          type="text"
+          name="search-name"
+          id="name"
+          placeholder="Search images..."
         />
 
         <button class="btn-search" type="submit" js-search>Search</button>
-    </form>
-    <div><span class="loader">Load&nbsp;ng</span></div>
-    <ul class="gallery"></ul>
+      </form>
+
+      <div class="wrapper">
+        <span class="loader"></span>
+        <p class="loader-p">Loading images, please wait...</p>
+      </div>
+      
+      <ul class="gallery"></ul>
+
     </section>
     <script type="module" src="./main.js"></script>
   </body>
