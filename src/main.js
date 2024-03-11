@@ -34,6 +34,7 @@ function onSearchBtn(e) {
     })
     .catch(console.log).finally(() => {
       hideLoader();
+      searchForm.reset();
     });
 
   e.target.reset();
